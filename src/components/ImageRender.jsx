@@ -1,11 +1,9 @@
 import React from "react";
-import angle from "../images/SAMPLE_angle.jpg";
-import answer from "../images/SAMPLE_answer.jpg";
-import crosshare from "../images/where_u_clicked.png";
+import skullEmoji from "../images/where_u_clicked.png";
 import Crosshair from "./Crosshair";
 import { useState, useMemo, useCallback } from "react";
 
-export default function ImageRender() {
+export default function ImageRender({ answer, angle, onComplete }) {
   const [crosshairLocation, setCrosshairLocation] = useState(null);
 
   const image = useMemo(() => {
@@ -19,8 +17,8 @@ export default function ImageRender() {
     (e) => {
       e.preventDefault();
       const {
-        clientX,
-        clientY,
+        pageX,
+        pageY,
         //    ...rest
       } = e;
       setCrosshairLocation((prev) => {
@@ -28,8 +26,8 @@ export default function ImageRender() {
           return null;
         }
         return {
-          x: clientX,
-          y: clientY,
+          x: pageX,
+          y: pageY,
         };
       });
     },
@@ -38,7 +36,7 @@ export default function ImageRender() {
 
   return (
     <div className="App">
-      <Crosshair location={crosshairLocation} height={10} image={crosshare} />
+      <Crosshair location={crosshairLocation} height={10} image={skullEmoji} />
       <img src={image} onClick={handleClick} />
     </div>
   );
